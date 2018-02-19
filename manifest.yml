@@ -1,4 +1,4 @@
 ---
 applications:
 - name: travistest
-  path: .\target\travistest-0.0.1-SNAPSHOT.jar
+  path: travistest-0.0.1-SNAPSHOT.jar
