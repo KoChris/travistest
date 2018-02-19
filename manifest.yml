@@ -1,3 +1,4 @@
 ---
 applications:
 - name: travistest
+  buildpack: java_buildpack
