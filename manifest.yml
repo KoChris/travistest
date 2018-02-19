@@ -1,4 +1,4 @@
 ---
 applications:
 - name: travistest
-  buildpack: java_buildpack
+  path: .\target\travistest-0.0.1-SNAPSHOT.jar
