@@ -10,7 +10,7 @@ public class TestRestController {
 
 	@RequestMapping("/hack")
 	public String somemethod(){
-		return "JKALsjD";
+		return "#Pridehack2018";
 	}
 	
 	
