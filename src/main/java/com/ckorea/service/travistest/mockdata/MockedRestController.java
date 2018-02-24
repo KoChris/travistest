@@ -1,6 +1,9 @@
 package com.ckorea.service.travistest.mockdata;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +19,27 @@ import com.ckorea.service.travistest.models.YearlyScore;
 @RequestMapping("/mock/{companyName}")
 public class MockedRestController {
 
+	public enum Name {
+		BENEFITS("Benefits"), 
+		COMMUNITY("Community Engagement"), 
+		COMMUNICATIONS("Communcations"), 
+		TRAINING("Training");
+		
+		private final String name;
+		
+		private Name(String s) {
+			this.name = s;
+		}
+		
+		public boolean equalsName(String otherName) {
+			return this.name().equals(otherName);
+		}
+		
+		public String toString() {
+			return this.name;
+		}
+	}
+
 	@CrossOrigin(origins = "*")
 	@GetMapping
 	public Company getCompanyData(
@@ -24,59 +48,93 @@ public class MockedRestController {
 		if("RBC".equalsIgnoreCase(companyName)) {
 			return Company.builder()
 				.name("RBC")
-				.overallScore(100)
-				.improvedScore(110)
+				.overallScore(76)
+				.improvedScore(82)
 				.categories(Arrays.asList(
-					makeSuggestion("Benefits", 60, 74),
-					makeSuggestion("Community Engagement", 70, 72)
+					makeSuggestion(Name.BENEFITS, 60, 74),
+					makeSuggestion(Name.COMMUNITY, 70, 72),
+					makeSuggestion(Name.COMMUNICATIONS, 60, 61),
+					makeSuggestion(Name.TRAINING, 88, 92)
 				))
 				.build();
 		} else {
 			return Company.builder()
 				.name("Random other company")
-				.overallScore(10)
-				.improvedScore(9)
+				.overallScore(60)
+				.improvedScore(79)
 				.categories(Arrays.asList(
-						makeSuggestion("Training", 45, 61),
-						makeSuggestion("Community Involvement", 82, 85)
+						makeSuggestion(Name.TRAINING, 45, 61),
+						makeSuggestion(Name.COMMUNITY, 82, 85)
 						))
 				.build();
 		}
 	}
 	
 	private Category makeSuggestion(
-			String name,
+			Name name,
 			int score,
 			int iScore
 			) {
 		
+		Random r = new Random();
+		int initialScore = r.nextInt(50) + 30;
+		
 		return Category.builder()
-			.name(name)
+			.name(name.name())
 			.actualScore(score)
 			.improvedScore(iScore)
 			.yearOverYear(Arrays.asList(
 				YearlyScore.builder()
 					.year("2012")
-					.score(65)
+					.score(initialScore += r.nextInt(5))
 					.build(),
 				YearlyScore.builder()
 					.year("2013")
-					.score(67)
+					.score(initialScore += r.nextInt(5))
 					.build(),
 				YearlyScore.builder()
 					.year("2014")
-					.score(72)
+					.score(initialScore += r.nextInt(5))
 					.build(),
 				YearlyScore.builder()
 					.year("2015")
-					.score(75)
+					.score(initialScore += r.nextInt(5))
 					.build()))
-			.suggestions(Arrays.asList(
-					"You can do this",
-					"Or do this!"
-					))
+			.suggestions(this.getSuggestionList(name))
 			.build();
 		
 	}
+	
+	List<String> getSuggestionList(Name name) {
+		List<String> result = new ArrayList<String>();
+		
+		switch(name) {
+		case BENEFITS:
+			result.add("Parental leave and bereavement should be made available to all families");
+			result.add("Your benefits package can include more coverage for services relating to transition, including gender affirmation surgery.");
+			result.add("Your benefits package can be improved with inclusive language");
+			break;
+		case COMMUNICATIONS:
+			result.add("Enhance existing public relations material with gender-neutral language.");
+			result.add("Put your commitment to diversity in writing.");
+			break;
+		case COMMUNITY:
+			result.add("Host and engage in community events which support diverse populations.");
+			result.add("Provide funding to ERG (Employee Resource Groups) and encourage groups to reach out to employees.");
+			break;
+		case TRAINING:
+			result.add("Target training to new employees as they enter and enagge with your computer.");
+			result.add("Regular training should be available to managers and senior executives as they engage with a diverse employee set.");
+			break;
+		default:
+			result.add("");
+			break;
+		
+		}
+		
+		return result;
+	}
+	
+	
 	
 }
