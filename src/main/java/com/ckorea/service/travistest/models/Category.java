@@ -1,7 +1,6 @@
 package com.ckorea.service.travistest.models;
 
 import java.util.List;
-import java.util.Map;
 
 import lombok.Builder;
 import lombok.Data;
@@ -10,13 +9,13 @@ import lombok.Data;
 @Builder
 public class Category {
 
-	public String Name;
+	public String name;
 	
 	public Integer actualScore;
 	
 	public Integer improvedScore; 
 	
-	public Map<Integer, Integer> yearOverYear;
+	public List<YearlyScore> yearOverYear;
 	
 	public List<String> suggestions;
 	
