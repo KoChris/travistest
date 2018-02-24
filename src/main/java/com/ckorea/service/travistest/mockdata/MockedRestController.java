@@ -77,7 +77,7 @@ public class MockedRestController {
 			) {
 		
 		Random r = new Random();
-		int initialScore = r.nextInt(50) + 30;
+		int initialScore = r.nextInt(40) + 30;
 		
 		return Category.builder()
 			.name(name.name())
@@ -86,19 +86,19 @@ public class MockedRestController {
 			.yearOverYear(Arrays.asList(
 				YearlyScore.builder()
 					.year("2012")
-					.score(initialScore += r.nextInt(5))
+					.score(initialScore += r.nextInt(5)*3)
 					.build(),
 				YearlyScore.builder()
 					.year("2013")
-					.score(initialScore += r.nextInt(5))
+					.score(initialScore += r.nextInt(5)*5)
 					.build(),
 				YearlyScore.builder()
 					.year("2014")
-					.score(initialScore += r.nextInt(5))
+					.score(initialScore += r.nextInt(5)*2)
 					.build(),
 				YearlyScore.builder()
 					.year("2015")
-					.score(initialScore += r.nextInt(5))
+					.score(initialScore += r.nextInt(5)*3)
 					.build()))
 			.suggestions(this.getSuggestionList(name))
 			.build();
@@ -123,11 +123,11 @@ public class MockedRestController {
 			result.add("Provide funding to ERG (Employee Resource Groups) and encourage groups to reach out to employees.");
 			break;
 		case TRAINING:
-			result.add("Target training to new employees as they enter and enagge with your computer.");
+			result.add("Target training to new employees as they enter and engage with your computer.");
 			result.add("Regular training should be available to managers and senior executives as they engage with a diverse employee set.");
 			break;
 		default:
-			result.add("");
+			result.add("Develop a culture of inclusion.");
 			break;
 		
 		}
