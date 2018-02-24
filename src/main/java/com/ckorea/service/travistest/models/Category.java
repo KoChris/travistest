@@ -15,6 +15,8 @@ public class Category {
 	
 	public Integer improvedScore; 
 	
+	public List<Question> answeredQuestions;
+	
 	public List<YearlyScore> yearOverYear;
 	
 	public List<String> suggestions;
